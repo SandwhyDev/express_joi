@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Users{
+  id                              Int       @id @default(autoincrement())
+  email                           String    @unique
+  password                        String
+  createdAt                       DateTime  @default(now())
+  updatedAt                       DateTime  @updatedAt
+
+  //relasi
+  biodata                         Biodata?
+  avatar                          Avatar?
+}
+
+model Biodata{
+  id                              Int       @id @default(autoincrement())
+  nama_lengkap                    String    @unique
+  usia                            String
+  alamat                          String
+  ttl                             String
+  jenis_kelamin                   String
+  user_id                         Int       @unique
+  createdAt                       DateTime  @default(now())
+  updatedAt                       DateTime  @updatedAt
+
+  //relasi
+  user                            Users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Avatar{
+  id                              Int       @id @default(autoincrement())
+  user_id                         Int       @unique
+  filename                        String
+  location                        String
+  createdAt                       DateTime  @default(now())
+  updatedAt                       DateTime  @updatedAt
+  
+  //relasi
+  user                            Users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
