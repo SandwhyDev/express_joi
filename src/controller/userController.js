@@ -1,9 +1,9 @@
 import express from "express";
 import path from "path";
 import { comparePassword, hashPassword } from "../libs/hashPassword";
-import { signJwt, verifyJwt } from "../libs/jwt";
+import { signJwt, verifyJwt } from "../middleware/jwt";
 import uploadPhoto from "../libs/multer";
-import validateStudentDetails from "../libs/validationPassword";
+import validateStudentDetails from "../middleware/validationPassword";
 import userModel from "../model/userModel";
 const userController = express.Router();
 
